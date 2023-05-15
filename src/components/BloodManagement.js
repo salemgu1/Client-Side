@@ -70,13 +70,15 @@ export default function BloodManagement({ transfusions }) {
   }
   return (
     <div onSubmit={handleSubmit}>
+            <h2>  ניפוק מנות דם  </h2>
+
       <label>
         : סוג הדם הנתרם
         <input type="text" value={bloodType} onChange={updateBloodType} />
       </label>
       <br />
       <label>
-        : שם מלא של הנתרם
+        : מספר מנות הדם הנדרשות
         <input type="number" value={amount} onChange={updateAmount} required />
       </label>
       <button type="submit" onClick={checkBloodAvailability}>

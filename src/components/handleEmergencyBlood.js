@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import axios from 'axios';
+import React, { useState,useEffect } from "react";
+import './handleEmergencyBlood.css'
 
 function MassBloodWithdrawal({ transfusions }) {
-  const [availableUnits, setAvailableUnits] = useState(50);
+  const [availableUnits, setAvailableUnits] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
 
   const countTransfusion = (type) => {
@@ -14,6 +14,7 @@ function MassBloodWithdrawal({ transfusions }) {
     }
     return counter;
   };
+  const [flag, setFlag] = useState(false);
 
   const totalTransfusions = () => {
     let total = {};
@@ -24,18 +25,24 @@ function MassBloodWithdrawal({ transfusions }) {
     return total;
   };
 
-  async function saveAction(actionType, description) {
-    console.log({actionType,description});
-    await axios.post(`http://localhost:4000/saveAction`,{actionType,description});
-  }
+  // let flag = false
 
   const handleWithdrawal = (bloodType) => {
     const total = totalTransfusions();
+    if(flag === true){
+      alert("אין מספיק מנות זמינות.")
+      return 
+    }
+    setFlag(true)
+    
+    alert(` נלקחו ${total[bloodType]} מנות דם מסוג -O `);
+      // alert()
     // setAvailableUnits(total[bloodType])
 
     let maxUnits = 0;
     if (bloodType === "O-") {
-      maxUnits = 10;
+      setAvailableUnits(total[bloodType]);
+      maxUnits = total[bloodType];
     } else {
       setErrorMsg("סוג דם לא תואם. אנא בחרו סוג דם -O");
       return;
@@ -43,19 +50,21 @@ function MassBloodWithdrawal({ transfusions }) {
     if (availableUnits >= maxUnits) {
       setAvailableUnits(availableUnits - maxUnits);
       setErrorMsg("");
-      alert(` נלקחו ${maxUnits} מנות דם מסוג -O `);
-    } else {
-      setErrorMsg("אין מספיק מנות זמינות.");
-    }
-
-    saveAction("get Transfusion from bank","get Transfusion from bank blood type O-" )
+      alert(` נלקחו ${total[bloodType]} מנות דם מסוג -O `);
+    } 
+    // else {
+    //   setErrorMsg("אין מספיק מנות זמינות.");
+    // }
   };
 
   return (
     <div>
-      <h2>נימוקי דחיפות לניפוק מנות דם באר״ן</h2>
-      <p> קיים {availableUnits} מנות דם O- :זמינות </p>
-      <button onClick={() => handleWithdrawal("O-")}> משיכת מנות דם O- </button>
+     
+      {/* */}
+      <h2> מנות דם עבור אר״ן</h2>
+      <label>  {flag ? 0 :totalTransfusions()["O-"]}   קיים מנות דם O- :זמינות  </label>
+      <button type="submit" onClick={() => handleWithdrawal("O-")}> משיכת מנות דם O- </button>
+    
       {errorMsg && <p>{errorMsg}</p>}
     </div>
   );
