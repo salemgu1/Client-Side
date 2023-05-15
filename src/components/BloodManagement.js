@@ -54,11 +54,10 @@ export default function BloodManagement({ transfusions }) {
     const total = totalTransfusions();
     
     if (amount > total[bloodType]) {
-      console.log(getAvailableBlood());
-
       setErrorMsg(`אין מספיק מנות זמינות.${getAvailableBlood()}`);
     }
   };
+  
   const getAvailableBlood =()=>{
     const arr = []
     const total = totalTransfusions()

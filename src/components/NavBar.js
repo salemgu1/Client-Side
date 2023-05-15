@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import './NavBar.css';
 
 function NavBar() {
+
   return (
     <nav className="navbar">
       <ul className="navbar-nav">
@@ -24,6 +25,14 @@ function NavBar() {
         <li className="nav-item">
           <Link to="/bloodWithdrawal" className="nav-link">
             blood Withdrawal 
+          </Link>
+        </li>
+        <li className="nav-item">
+          {/* <div onClick={downloadPdf} className="nav-link">
+            download report
+          </div> */}
+          <Link to="/viewPdf" className="nav-link">
+            report 
           </Link>
         </li>
       </ul>

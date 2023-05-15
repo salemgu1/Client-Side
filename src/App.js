@@ -7,6 +7,7 @@ import { useState,useEffect } from 'react';
 import Transfusions from './components/Transfusions';
 import BloodManagement from './components/BloodManagement';
 import MassBloodWithdrawal from './components/handleEmergencyBlood';
+import ViewData from './components/ViewData';
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
       <Route path="/transfusion" element =  {<BloodTransfusion/>}/>
       <Route path="/checkBlood" element = {<BloodManagement transfusions = {transfusions}/>}/>
       <Route path="/bloodWithdrawal" element = {<MassBloodWithdrawal transfusions = {transfusions}/>}/>
-
+      <Route path="/viewPdf" element = {<ViewData/>}/>
     </Routes>
   </Router>
   );
